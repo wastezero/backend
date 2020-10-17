@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :orders
+  resources :clients
+  resources :foods
+  resources :managers
+  resources :admins
+  resources :branches
+  resources :restaurants
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   devise_for :users
   namespace :api do
