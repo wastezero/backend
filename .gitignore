@@ -11,6 +11,9 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+.idea/*
+/.idea/*
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
@@ -25,3 +28,10 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+
+.env.local
+.env.test.local
+.envrc
+zeus.json
+custom_plan.rb
