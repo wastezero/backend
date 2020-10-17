@@ -5,10 +5,9 @@ class CreateAddresses < ActiveRecord::Migration[5.2]
       t.string :house_number
       t.string :zip_code
 
+      t.references :city, index: true, foreign_key: { to_table: :cities }
+      t.references :country, index: true, foreign_key: { to_table: :countries }
       t.timestamps
-
-      add_foreign_key :addresses, :cities
-      add_foreign_key :addresses, :countries
     end
   end
 end
