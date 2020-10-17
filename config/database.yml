@@ -1,25 +1,35 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV["WEB_DB_POOL"] || 5 %>
   timeout: 5000
 
 development:
-  <<: *default
-  database: db/development.sqlite3
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV["WEB_DB_POOL"] || 5 %>
+  timeout: 5000
+  database: <%= ENV["DATABASE_NAME_DEVELOPMENT"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+  port: 5432
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: <%= ENV["DATABASE_NAME_TEST"] %>
+  username: <%= ENV["DATABASE_USERNAME"] %>
+  password: <%= ENV["DATABASE_PASSWORD"] %>
+  host: <%= ENV["DATABASE_HOST"] %>
+
+staging:
+  <<: *default
+  database: <%= ENV["STAGING_DB_DATABASE"] %>
+  username: <%= ENV["STAGING_DB_USERNAME"] %>
+  password: <%= ENV["STAGING_DB_PASSWORD"] %>
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: localyzeapp
+  username: <%= ENV["PRODUCTION_DB_NAME"] %>
+  password: <%= ENV["PRODUCTION_DB_PASSWORD"] %>
+
