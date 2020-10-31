@@ -2,8 +2,18 @@
 
 Rails.application.routes.draw do
   devise_for :clients
+  namespace :api do
+    namespace :v1 do
+      namespace :client do
+        devise_scope :client do
+          post 'sign_up', to: 'registrations#create'
+          post 'sign_in', to: 'sessions#create'
+        end
+      end
+    end
+  end
   resources :orders
-  resources :clients
+  # resources :clients
   resources :foods
   resources :managers
   resources :admins
