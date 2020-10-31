@@ -1,0 +1,55 @@
+class Api::V1::Client::OrdersController < ApplicationController
+  # before_action :authenticate_client!
+  before_action :set_order, only: [:show]
+
+  # GET /orders
+  def index
+    @orders = Order.filter_by_price(params[:min_price], params[:max_price])
+                  .filter_by_distance(params[:lng], params[:lat])
+                  .all
+    # .filter_by_types(params[:type])
+
+    render json: @orders
+  end
+
+  # GET /orders/1
+  def show
+    render json: @order
+  end
+
+  # # POST /orders
+  # def create
+  #   @order = Order.new(order_params)
+  #
+  #   if @order.save
+  #     render json: @order, status: :created, location: @order
+  #   else
+  #     render json: @order.errors, status: :unprocessable_entity
+  #   end
+  # end
+  #
+  # # PATCH/PUT /orders/1
+  # def update
+  #   if @order.update(order_params)
+  #     render json: @order
+  #   else
+  #     render json: @order.errors, status: :unprocessable_entity
+  #   end
+  # end
+  #
+  # # DELETE /orders/1
+  # def destroy
+  #   @order.destroy
+  # end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_order
+      @order = Order.find(params[:id])
+    end
+
+    # # Only allow a trusted parameter "white list" through.
+    # def order_params
+    #   params.fetch(:order, {})
+    # end
+end

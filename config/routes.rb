@@ -16,6 +16,11 @@ Rails.application.routes.draw do
         resources :branches
         resources :restaurants
       end
+      namespace :client do
+        post 'sign_up', to: 'registrations#create'
+        post 'sign_in', to: 'sessions#create'
+        resources :orders
+      end
     end
   end
 end
