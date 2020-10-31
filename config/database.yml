@@ -13,13 +13,14 @@ development:
   username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host: <%= ENV["DATABASE_HOST"] %>
-  port: 5432
+  port: <%= ENV["DATABASE_PORT"] %>
 test:
   <<: *default
   database: <%= ENV["DATABASE_NAME_TEST"] %>
   username: <%= ENV["DATABASE_USERNAME"] %>
   password: <%= ENV["DATABASE_PASSWORD"] %>
   host: <%= ENV["DATABASE_HOST"] %>
+  port: <%= ENV["DATABASE_PORT"] %>
 
 staging:
   <<: *default
