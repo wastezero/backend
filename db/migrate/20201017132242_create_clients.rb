@@ -8,7 +8,6 @@ class CreateClients < ActiveRecord::Migration[5.2]
       t.string :password
       t.references :address, index: true, foreign_key: { to_table: :addresses }
 
-      t.timestamps
     end
   end
 end
