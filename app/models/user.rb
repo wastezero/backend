@@ -1,7 +1,38 @@
 class User < ApplicationRecord
-  acts_as_token_authenticatable
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  has_secure_password
+  belongs_to :manager, optional: true
+  belongs_to :restaurant, optional: true
+  belongs_to :admin, optional: true
+  belongs_to :client, optional: true
+
+  def role
+    if manager_id
+      UserRole::Manager
+    elsif restaurant_id
+      UserRole::Restaurant
+    elsif admin_id
+      UserRole::Admin
+    elsif client_id
+      UserRole::Client
+    end
+  end
+
+  def parent_user
+    case role
+    when UserRole::Manager
+      manager
+    when UserRole::Admin
+      admin
+    when UserRole::Client
+      client
+    when UserRole::Restaurant
+      restaurant
+    end
+  end
+
+  def name
+    parent_user.name
+  end
+
+
 end

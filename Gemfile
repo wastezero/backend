@@ -21,15 +21,15 @@ gem 'puma', '~> 3.11'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
+gem 'bcrypt', '~> 3.1.7'
 gem 'blueprinter' # JSON Serializer
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'devise'
+gem 'jwt'
 gem 'pg', '~> 1.2.3'
-gem "simple_token_authentication"
-
+# gem "simple_token_authentication"
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
-# gem 'rack-cors'
+gem 'rack-cors'
 
 group :development, :test do
   gem 'dotenv-rails'

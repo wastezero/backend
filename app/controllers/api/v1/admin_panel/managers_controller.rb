@@ -1,5 +1,6 @@
-class ManagersController < ApplicationController
+class Api::V1::AdminPanel::ManagersController < ApplicationController
   before_action :set_manager, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /managers
   def index

@@ -3,9 +3,10 @@
 class UserBlueprinter < Blueprinter::Base
   identifier :id
 
-  fields :email
+  fields :email, :authentication_token
 
-  view :authenticated do
-    field :authentication_token
+  view :who_am_i do
+    field :role
+    field :name
   end
 end
