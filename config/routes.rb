@@ -4,9 +4,6 @@ Rails.application.routes.draw do
   resources :orders
   # resources :clients
   resources :foods
-  resources :admins
-  resources :branches
-  resources :restaurants
   post 'login', to: 'users#login'
   post 'sign_up', to: 'users#sign_up'
   get 'who_am_i', to: 'users#who_am_i'
@@ -15,6 +12,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :admin do
         resources :managers
+        resources :admins
+        resources :branches
+        resources :restaurants
       end
     end
   end
