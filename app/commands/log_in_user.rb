@@ -8,9 +8,9 @@ class LogInUser
   end
 
   def call
-    token = JsonWebToken.encode(user_id: @user.id) if @user
-    return nil unless token
+    return nil unless @user
 
+    token = JsonWebToken.encode(user_id: @user.id)
     @user.authentication_token = token
     @user.save
     @user
@@ -21,8 +21,8 @@ class LogInUser
   attr_accessor :email, :password
 
   def set_user
-    @user = User.find_by_email(email)
+    user = User.find_by_email(email)
 
-    @user if @user&.authenticate(password)
+    @user = user if user&.authenticate(password)
   end
 end
