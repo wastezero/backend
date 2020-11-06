@@ -1,4 +1,4 @@
-class Api::V1::Admin::ManagersController < ApplicationController
+class Api::V1::AdminPanel::ManagersController < ApplicationController
   before_action :set_manager, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
