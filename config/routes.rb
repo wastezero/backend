@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :restaurants
   post 'login', to: 'users#login'
   post 'sign_up', to: 'users#sign_up'
+  get 'who_am_i', to: 'users#who_am_i'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   namespace :api do
     namespace :v1 do
