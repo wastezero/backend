@@ -30,6 +30,21 @@ module WasteZeroFood
       g.integration_tool :rspec
     end
 
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource(
+          '*',
+          headers: :any,
+          expose: ["Authorization"],
+          methods: [:get, :patch, :put, :delete, :post, :options, :show]
+        )
+      end
+    end
+
+    config.autoload_paths << Rails.root.join("lib")
+    config.eager_load_paths << Rails.root.join("lib")
+
     config.public_file_server.enabled
 
     # Settings in config/environments/* take precedence over those specified here.
