@@ -7,15 +7,25 @@ class Api::V1::Client::OrdersController < ApplicationController
   # GET /orders
   def index
     @square = square(params[:lng], params[:lat])
-    @orders = Order
-                  .where(client_id: nil)
-                  .where("expires_at >= ?", DateTime.now())
-                  .filter_by_price(params[:min_price], params[:max_price])
-                  .filter_by_distance(@square[0],@square[1],@square[2],@square[3])
-                  .filter_by_types(params[:type])
-                  .filter_by_search_name(params[:name])
-                  .filter_by_search_rest(params[:restaurant])
-                  .all
+    @orders = Order.where(client_id: nil)
+                   .where("expires_at >= ?", DateTime.now())
+                   .all
+
+    if params[:min_price].present? && params[:max_price].present?
+      @orders = @orders.filter_by_price(params[:min_price], params[:max_price])
+    end
+    if params[:lng].present? && params[:lat].present?
+      @orders = @orders.filter_by_distance(@square[0],@square[1],@square[2],@square[3])
+    end
+    if params[:type].present?
+      @orders = @orders.filter_by_types(params[:type].split(','))
+    end
+    if params[:name].present?
+      @orders = @orders.filter_by_search_name(params[:name])
+    end
+    if params[:restaurant].present?
+      @orders = @orders.filter_by_search_rest(params[:restaurant])
+    end
 
     render json: @orders
   end
@@ -56,17 +66,6 @@ class Api::V1::Client::OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
-
-  @rad = 1
-  @R = 6371
-
-  def getMinMaxLngLat(lng, lat)
-    maxLat = lat + ((@rad / @R) * Math::PI / 180)
-    minLat = lat - ((@rad / @R) * Math::PI / 180)
-    maxLng = lng + (Math.asin(@rad / @R) / Math.cos(lat / 180 * Math::PI)) * Math::PI / 180
-    minLng = lng - (Math.asin(@rad / @R) / Math.cos(lat / 180 * Math::PI)) * Math::PI / 180
-    return minLat, maxLat
-  end
 
     # # Only allow a trusted parameter "white list" through.
     def order_params

@@ -4,9 +4,13 @@ class Api::V1::Client::BranchesController < ApplicationController
   # GET /branches
   def index
     # @branches = Branch.filter_by_price(params[:min_price], params[:max_price])
-    @branches = Branch.filter_by_types(params[:type])
-                      .filter_by_search_name(params[:name])
-                      .all
+    @branches = Branch.all
+    if params[:type].present?
+      @branches = @branches.filter_by_types(params[:type].split(','))
+    end
+    if params[:name].present?
+      @branches = @branches.filter_by_search_name(params[:name])
+    end
 
     render json: @branches
   end
