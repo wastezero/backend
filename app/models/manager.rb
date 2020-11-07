@@ -3,6 +3,6 @@ class Manager < ApplicationRecord
   belongs_to :branch, foreign_key: :branch_id
 
   def init
-    self.status ||= :pending
+    self.status ||= :confirmed
   end
 end
