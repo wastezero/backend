@@ -20,6 +20,10 @@ Rails.application.routes.draw do
         resources :branches
         resources :restaurants
       end
+      namespace :client do
+        resources :orders
+        resources :branches
+      end
     end
   end
 end
