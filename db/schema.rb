@@ -10,7 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2020_11_07_101817) do
+=======
+ActiveRecord::Schema.define(version: 2020_11_07_062924) do
+>>>>>>> fixed filters
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,8 +111,8 @@ ActiveRecord::Schema.define(version: 2020_11_07_101817) do
     t.bigint "branch_id"
     t.bigint "food_id"
     t.bigint "client_id"
-    t.datetime "expiration_time"
-    t.datetime "overdue_date"
+    t.datetime "expires_at"
+    t.datetime "deadline"
     t.float "discount_price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
