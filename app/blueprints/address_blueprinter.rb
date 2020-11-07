@@ -3,6 +3,6 @@
 class AddressBlueprinter < Blueprinter::Base
   identifier :id
 
-  fields :street, :house_number, :zip_code, :long, :lat, :city_name, :country_name
+  fields :street, :house_number, :zip_code, :lng, :lat, :city_name, :country_name
 
 end

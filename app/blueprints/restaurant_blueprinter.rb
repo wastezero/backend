@@ -3,6 +3,6 @@
 class RestaurantBlueprinter < Blueprinter::Base
   identifier :id
 
-  fields :name, :cuisine, :status, :avatar, :description, :contacts
+  fields :name, :cuisine, :status, :avatar, :description, :contacts, :website
 
 end
