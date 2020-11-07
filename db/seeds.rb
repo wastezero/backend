@@ -28,3 +28,7 @@ Admin.create(name: 'Saddam', surname: 'Master')
 User.create(email: 'admin@wastezerofood.com',
             password: '12345',
             admin_id: 1)
+User.create(email: 'restaurant_iftar@wastezerofood.com',
+            password: '12345',
+            restaurant_id: 1)
+

@@ -6,6 +6,12 @@ class ApplicationController < ActionController::Base
     head :unauthorized unless logged_in_user
   end
 
+  def validate_admin!
+    return head :unauthorized if @user.admin_id.nil?
+
+    @admin = @user.admin
+  end
+
   def logged_in_user
     return unless decoded_token
 
@@ -26,6 +32,14 @@ class ApplicationController < ActionController::Base
     rescue JWT::DecodeError
       nil
     end
+  end
+
+  def pagination_meta(object)        {
+    current_page: object.current_page,
+    next_page: object.next_page,
+    prev_page: object.prev_page,
+    total_pages: object.total_pages,
+    total_count: object.total_count        }
   end
 
 
