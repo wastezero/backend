@@ -10,6 +10,10 @@ Rails.application.routes.draw do
       post 'login', to: 'users#login'
       post 'sign_up', to: 'users#sign_up'
       get 'who_am_i', to: 'users#who_am_i'
+      namespace :registration do
+        resources :branches
+        resources :restaurants
+      end
       namespace :admin_panel do
         resources :managers
         resources :admins
