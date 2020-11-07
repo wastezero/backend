@@ -1,19 +1,25 @@
+# require 'utils'
+
 class Api::V1::Client::OrdersController < ApplicationController
   # before_action :authenticate_client!
   before_action :set_order, only: [:show]
 
   # GET /orders
   def index
+    # minLat, maxLat = getMinMaxLngLat(params[:lng], params[:lat])
+    puts minLat
+    puts maxLat
     @orders = Order.filter_by_price(params[:min_price], params[:max_price])
                   .filter_by_distance(params[:lng], params[:lat])
+                  .filter_by_types(params[:type])
                   .all
-    # .filter_by_types(params[:type])
 
     render json: @orders
   end
 
   # GET /orders/1
   def show
+    @order = Order.find(params[:id])
     render json: @order
   end
 
@@ -47,6 +53,17 @@ class Api::V1::Client::OrdersController < ApplicationController
     def set_order
       @order = Order.find(params[:id])
     end
+
+  @rad = 1
+  @R = 6371
+
+  def getMinMaxLngLat(lng, lat)
+    maxLat = lat + ((@rad / @R) * Math::PI / 180)
+    minLat = lat - ((@rad / @R) * Math::PI / 180)
+    maxLng = lng + (Math.asin(@rad / @R) / Math.cos(lat / 180 * Math::PI)) * Math::PI / 180
+    minLng = lng - (Math.asin(@rad / @R) / Math.cos(lat / 180 * Math::PI)) * Math::PI / 180
+    return minLat, maxLat
+  end
 
     # # Only allow a trusted parameter "white list" through.
     # def order_params
