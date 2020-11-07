@@ -6,10 +6,41 @@ class ApplicationController < ActionController::Base
     head :unauthorized unless logged_in_user
   end
 
+  def validate!(roles)
+    user_authorized = false
+    roles.each do |role|
+      user_authorized = public_send("validate_#{role}!")
+      break if user_authorized
+    end
+    head :unauthorized unless user_authorized
+  end
+
   def validate_admin!
-    return head :unauthorized if @user.admin_id.nil?
+    return false if @user.admin_id.nil?
 
     @admin = @user.admin
+    true
+  end
+
+  def validate_restaurant!
+    return false if @user.restaurant_id.nil?
+
+    @restaurant = @user.restaurant
+    true
+  end
+
+  def validate_client!
+    return false if @user.client_id.nil?
+
+    @client = @user.client
+    true
+  end
+
+  def validate_manager!
+    return false if @user.manager_id.nil?
+
+    @manager = @user.manager
+    true
   end
 
   def logged_in_user

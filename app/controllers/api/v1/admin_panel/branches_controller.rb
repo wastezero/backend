@@ -1,11 +1,25 @@
 class Api::V1::AdminPanel::BranchesController < ApplicationController
   before_action :set_branch, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
+  before_action -> { validate!(%w[admin restaurant manager]) }, only: :index
 
   # GET /branches
   def index
-    @branches = Branch.all
+    branches = if @restaurant.present?
+                 Branch.includes(%i[restaurant address])
+                       .where(restaurant_id: @restaurant.id)
+               elsif @manager.present?
+                 Branch.includes(%i[restaurant address])
+                       .where(restaurant_id: @manager.branch.restaurant.id)
+               else
+                 Branch.includes(%i[restaurant address]).all
+               end
 
-    render json: @branches
+    @branches = branches.page(params[:page] ? params[:page].to_i : 1)
+                        .per(params[:per_page] ? params[:per_page].to_i : 25)
+
+    render json: ::BranchBlueprinter
+      .render(@branches, view: :overview, root: :branches, meta: pagination_meta(@branches))
   end
 
   # GET /branches/1

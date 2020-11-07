@@ -1,12 +1,23 @@
 class Api::V1::AdminPanel::ManagersController < ApplicationController
   before_action :set_manager, only: [:show, :update, :destroy]
   before_action :authenticate_user!
+  before_action -> { validate!(%w[admin restaurant]) }, only: :index
 
   # GET /managers
   def index
-    @managers = Manager.all
+    managers = if @restaurant.present?
+                 Manager.joins(:branch).includes(:branch)
+                   .where(branch: { restaurant_id: @restaurant.id })
+               else
+                 Manager.includes(:branch).all
+               end
 
-    render json: @managers
+
+    @managers = managers.page(params[:page] ? params[:page].to_i : 1)
+                  .per(params[:per_page] ? params[:per_page].to_i : 25)
+
+    render json: ::ManagerBlueprinter
+      .render(@managers, root: :managers, meta: pagination_meta(@managers))
   end
 
   # GET /managers/1

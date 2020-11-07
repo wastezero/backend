@@ -1,7 +1,7 @@
 class Api::V1::AdminPanel::RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :update, :destroy]
   before_action :authenticate_user!
-  before_action :validate_admin!, only: :index
+  before_action -> { validate!(%w[admin]) }, only: :index
 
   # GET /restaurants
   def index
