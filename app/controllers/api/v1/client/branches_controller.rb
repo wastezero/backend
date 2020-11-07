@@ -5,6 +5,7 @@ class Api::V1::Client::BranchesController < ApplicationController
   def index
     # @branches = Branch.filter_by_price(params[:min_price], params[:max_price])
     @branches = Branch.filter_by_types(params[:type])
+                      .filter_by_search_name(params[:name])
                       .all
 
     render json: @branches
