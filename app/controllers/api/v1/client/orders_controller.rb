@@ -10,6 +10,8 @@ class Api::V1::Client::OrdersController < ApplicationController
     @orders = Order.filter_by_price(params[:min_price], params[:max_price])
                   .filter_by_distance(@square[0],@square[1],@square[2],@square[3])
                   .filter_by_types(params[:type])
+                  .filter_by_search_name(params[:name])
+                  .filter_by_search_rest(params[:restaurant])
                   .all
 
     render json: @orders

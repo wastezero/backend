@@ -9,6 +9,7 @@ class Order < ActiveRecord::Base
     joins(branch: [:address])
         .where("addresses.lng >= ? AND addresses.lng <= ? AND addresses.lat >= ? AND addresses.lat <= ?",
                minLng, maxLng, minLat, maxLat) }
-
+  scope :filter_by_search_name, -> (name) { joins(:food).where("foods.name like ?", name) }
+  scope :filter_by_search_rest, -> (name) { joins(:branch => :restaurant).where("restaurants.name like ?", name) }
 
 end
