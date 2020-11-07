@@ -26,7 +26,6 @@ Address.create(street: 'Kabanbay batyr',
                house_number: 55,
                zip_code: '010000',
                city_id: 1,
-               country_id: 1,
                lng: '55.09127150474298',
                lat: '75.40077937989315')
 Restaurant.create(name: 'Iftar',
