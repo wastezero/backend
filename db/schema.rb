@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2020_11_07_101817) do
     t.bigint "city_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "long"
+    t.bigint "lng"
     t.bigint "lat"
     t.index ["city_id"], name: "index_addresses_on_city_id"
   end
@@ -56,8 +56,20 @@ ActiveRecord::Schema.define(version: 2020_11_07_101817) do
     t.string "name"
     t.string "surname"
     t.string "phone"
+    t.string "password"
     t.bigint "address_id"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "authentication_token", limit: 30
     t.index ["address_id"], name: "index_clients_on_address_id"
+    t.index ["authentication_token"], name: "index_clients_on_authentication_token", unique: true
+    t.index ["email"], name: "index_clients_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_clients_on_reset_password_token", unique: true
   end
 
   create_table "countries", force: :cascade do |t|
@@ -119,13 +131,13 @@ ActiveRecord::Schema.define(version: 2020_11_07_101817) do
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
-    t.string "password_digest", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "authentication_token"
+    t.string "authentication_token", limit: 30
     t.integer "manager_id"
     t.integer "restaurant_id"
     t.integer "admin_id"

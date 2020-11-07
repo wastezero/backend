@@ -29,6 +29,7 @@ gem 'kaminari'
 gem 'api-pagination'
 gem 'pg', '~> 1.2.3'
 # gem "simple_token_authentication"
+gem 'geokit-rails'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'

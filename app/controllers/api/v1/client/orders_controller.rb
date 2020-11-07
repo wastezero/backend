@@ -1,16 +1,14 @@
 # require 'utils'
 
 class Api::V1::Client::OrdersController < ApplicationController
-  # before_action :authenticate_client!
+  include Utils
   before_action :set_order, only: [:show]
 
   # GET /orders
   def index
-    # minLat, maxLat = getMinMaxLngLat(params[:lng], params[:lat])
-    puts minLat
-    puts maxLat
+    @square = square(params[:lng], params[:lat])
     @orders = Order.filter_by_price(params[:min_price], params[:max_price])
-                  .filter_by_distance(params[:lng], params[:lat])
+                  .filter_by_distance(@square[0],@square[1],@square[2],@square[3])
                   .filter_by_types(params[:type])
                   .all
 
