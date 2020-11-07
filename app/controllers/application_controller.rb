@@ -6,6 +6,43 @@ class ApplicationController < ActionController::Base
     head :unauthorized unless logged_in_user
   end
 
+  def validate!(roles)
+    user_authorized = false
+    roles.each do |role|
+      user_authorized = public_send("validate_#{role}!")
+      break if user_authorized
+    end
+    head :unauthorized unless user_authorized
+  end
+
+  def validate_admin!
+    return false if @user.admin_id.nil?
+
+    @admin = @user.admin
+    true
+  end
+
+  def validate_restaurant!
+    return false if @user.restaurant_id.nil?
+
+    @restaurant = @user.restaurant
+    true
+  end
+
+  def validate_client!
+    return false if @user.client_id.nil?
+
+    @client = @user.client
+    true
+  end
+
+  def validate_manager!
+    return false if @user.manager_id.nil?
+
+    @manager = @user.manager
+    true
+  end
+
   def logged_in_user
     return unless decoded_token
 
@@ -26,6 +63,14 @@ class ApplicationController < ActionController::Base
     rescue JWT::DecodeError
       nil
     end
+  end
+
+  def pagination_meta(object)        {
+    current_page: object.current_page,
+    next_page: object.next_page,
+    prev_page: object.prev_page,
+    total_pages: object.total_pages,
+    total_count: object.total_count        }
   end
 
 

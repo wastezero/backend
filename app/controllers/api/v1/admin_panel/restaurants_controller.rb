@@ -1,11 +1,16 @@
 class Api::V1::AdminPanel::RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
+  before_action -> { validate!(%w[admin]) }, only: :index
 
   # GET /restaurants
   def index
-    @restaurants = Restaurant.all
+    @restaurants = Restaurant
+                     .page(params[:page] ? params[:page].to_i : 1)
+                     .per(params[:per_page] ? params[:per_page].to_i : 25)
 
-    render json: @restaurants
+    render json: ::RestaurantBlueprinter
+      .render(@restaurants, root: :restaurants, meta: pagination_meta(@restaurants))
   end
 
   # GET /restaurants/1

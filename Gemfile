@@ -25,6 +25,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'blueprinter' # JSON Serializer
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'jwt'
+gem 'kaminari'
+gem 'api-pagination'
 gem 'pg', '~> 1.2.3'
 # gem "simple_token_authentication"
 
