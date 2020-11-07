@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
 
   before_action :authenticate_user!, only: :who_am_i
 
