@@ -55,25 +55,26 @@ Food.create(name: "food",
             created_at: DateTime.now())
 # Admin.create(name: 'Saddam', surname: 'Master')
 #
-# User.create(email: 'admin@wastezerofood.com',
-#             password: '12345',
-#             admin_id: 1)
+User.create(email: 'client1@wastezerofood.com',
+            password: '12345',
+            client_id: 1)
+Client.create(name: 'Nurs',
+              address_id: 1)
 
 Order.create(branch_id: 1,
              food_id: 1,
-             expires_at: DateTime.tomorrow(),
-             deadline: DateTime.tomorrow(),
-             discount_price: 1000,
-             created_at: DateTime.now())
+             expires_at: DateTime.now().next_day(30),
+             deadline: DateTime.now().next_day(30),
+             discount_price: 1000)
 Order.create(branch_id: 2,
              food_id: 1,
              client_id: nil,
-             expires_at: DateTime.tomorrow(),
-             deadline: DateTime.tomorrow(),
+             expires_at: DateTime.now().next_day(30),
+             deadline: DateTime.now().next_day(30),
              discount_price: 1000)
 Order.create(branch_id: 3,
              food_id: 1,
              client_id: nil,
-             expires_at: DateTime.tomorrow(),
-             deadline: DateTime.tomorrow(),
+             expires_at: DateTime.now().next_day(30),
+             deadline: DateTime.now().next_day(30),
              discount_price: 1000)
