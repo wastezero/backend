@@ -2,7 +2,9 @@
 
 class Api::V1::Client::OrdersController < ApplicationController
   include Utils
-  before_action :set_order, only: [:show]
+  before_action :set_order, only: [:show, :update]
+  before_action :authenticate_user!, only: [:update]
+  before_action -> { validate!(%w[client]) }, only: :update
 
   # GET /orders
   def index
@@ -32,7 +34,6 @@ class Api::V1::Client::OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    @order = Order.find(params[:id])
     render json: @order
   end
 
@@ -49,7 +50,8 @@ class Api::V1::Client::OrdersController < ApplicationController
   #
   # PATCH/PUT /orders/1
   def update
-    if @order.update(order_params)
+    client_id = @client.id
+    if @order.update(client_id: client_id)
       render json: @order
     else
       render json: @order.errors, status: :unprocessable_entity
