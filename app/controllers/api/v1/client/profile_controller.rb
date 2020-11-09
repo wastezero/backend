@@ -1,10 +1,12 @@
 class Api::V1::Client::ProfileController < ApplicationController
-  # before_action :set_client, only: [:show, :update, :destroy]
   before_action :authenticate_user!
   before_action -> { validate!(%w[client]) }
 
   # GET /clients/1
   def index
+    client_id = @client.id
+    puts client_id
+    @profile = Client.find(client_id)
     render json: @profile
   end
 
@@ -25,8 +27,7 @@ class Api::V1::Client::ProfileController < ApplicationController
   private
   # # Use callbacks to share common setup or constraints between actions.
   def set_client
-    client_id = @client.id
-    @profile = Client.find(client_id)
+    @profile = Client.find(@client.id)
   end
 
   # Only allow a trusted parameter "white list" through.
