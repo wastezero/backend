@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         resources :orders
         resources :branches
         resources :profile
+        resources :my_orders
       end
     end
   end
