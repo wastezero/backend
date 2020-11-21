@@ -50,7 +50,8 @@ Food.create(name: "food",
             ingredients: "some ingredients",
             price: 1800,
             cuisine: "fast food",
-            # type: '1',
+            # type: "1",
+            image: "some_link",
             restaurant_id: 1,
             created_at: DateTime.now())
 # Admin.create(name: 'Saddam', surname: 'Master')
