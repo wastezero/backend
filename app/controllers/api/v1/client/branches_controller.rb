@@ -1,5 +1,5 @@
 class Api::V1::Client::BranchesController < ApplicationController
-  before_action :set_branch, only: [:show, :update, :destroy]
+  # before_action :set_branch, only: [:show, :update, :destroy]
 
   # GET /branches
   def index
@@ -32,6 +32,9 @@ class Api::V1::Client::BranchesController < ApplicationController
 
   # GET /branches/1
   def show
+    @branch = Branch.joins(:orders).where("orders.branch_id = ?", params[:id]).first
+
+    # render json: @branch
     render json: ::BranchBlueprinter.render(@branch, view: :client_branch, root: :branches)
   end
 
