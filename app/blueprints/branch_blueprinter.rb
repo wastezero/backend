@@ -30,9 +30,13 @@ class BranchBlueprinter < Blueprinter::Base
   end
 
   view :overview do
+    include_view :basic_info
+    include_view :manager
+  end
+
+  view :basic_info do
     association :restaurant, blueprint: RestaurantBlueprinter, view: :extended
     association :address, blueprint: AddressBlueprinter, view: :extended
-    include_view :manager
   end
 
 end

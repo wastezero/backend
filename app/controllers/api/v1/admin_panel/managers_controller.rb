@@ -11,10 +11,13 @@ class Api::V1::AdminPanel::ManagersController < ApplicationController
                else
                  Manager.includes(:branch).all
                end
+    if params[:restaurant_id]
+      managers = managers.of_restaurant(params[:restaurant_id])
+    end
 
 
     @managers = managers.page(params[:page] ? params[:page].to_i : 1)
-                  .per(params[:per_page] ? params[:per_page].to_i : 25)
+                        .per(params[:per_page] ? params[:per_page].to_i : 25)
 
     render json: ::ManagerBlueprinter
       .render(@managers, root: :managers, meta: pagination_meta(@managers))
