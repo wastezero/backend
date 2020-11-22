@@ -23,6 +23,7 @@ class RestaurantBlueprinter < Blueprinter::Base
   view :admin_view do
     association :branches, blueprint: BranchBlueprinter, view: :main_info
     association :foods, blueprint: FoodBlueprinter
+    include_view :extended
   end
 
   view :extended do
