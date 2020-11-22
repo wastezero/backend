@@ -66,21 +66,25 @@ Order.create(branch_id: 1,
              food_id: 1,
              expires_at: DateTime.now().next_day(30),
              deadline: DateTime.now().next_day(30),
-             discount_price: 1000)
+             discount_price: 1000,
+             status: "CREATED")
 Order.create(branch_id: 1,
              food_id: 1,
              expires_at: DateTime.now().next_day(30),
              deadline: DateTime.now().next_day(30),
-             discount_price: 900)
+             discount_price: 900,
+             status: "CREATED")
 Order.create(branch_id: 2,
              food_id: 1,
              client_id: nil,
              expires_at: DateTime.now().next_day(30),
              deadline: DateTime.now().next_day(30),
-             discount_price: 1000)
+             discount_price: 1000,
+             status: "CREATED")
 Order.create(branch_id: 3,
              food_id: 1,
              client_id: nil,
              expires_at: DateTime.now().next_day(30),
              deadline: DateTime.now().next_day(30),
-             discount_price: 1000)
+             discount_price: 1000,
+             status: "CREATED")
