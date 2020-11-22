@@ -20,8 +20,8 @@ class BranchBlueprinter < Blueprinter::Base
   end
 
   view :overview do
-    association :restaurant, blueprint: RestaurantBlueprinter
-    association :address, blueprint: AddressBlueprinter
+    association :restaurant, blueprint: RestaurantBlueprinter, view: :extended
+    association :address, blueprint: AddressBlueprinter, view: :extended
   end
 
 end
