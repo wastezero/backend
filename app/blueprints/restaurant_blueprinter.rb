@@ -20,6 +20,11 @@ class RestaurantBlueprinter < Blueprinter::Base
     exclude :avatar
   end
 
+  view :admin_view do
+    association :branches, blueprint: BranchBlueprinter, view: :main_info
+    association :foods, blueprint: FoodBlueprinter
+  end
+
   view :extended do
     fields :status, :description, :contacts, :website
   end

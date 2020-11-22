@@ -19,9 +19,19 @@ class BranchBlueprinter < Blueprinter::Base
     association :address, blueprint: AddressBlueprinter, view: :client_branch
   end
 
+  view :main_info do
+    association :address, blueprint: AddressBlueprinter, view: :extended
+    include_view :manager
+  end
+
+  view :manager do
+    association :manager, blueprint: ManagerBlueprinter
+  end
+
   view :overview do
     association :restaurant, blueprint: RestaurantBlueprinter, view: :extended
     association :address, blueprint: AddressBlueprinter, view: :extended
+    include_view :manager
   end
 
 end

@@ -6,16 +6,20 @@ class Api::V1::AdminPanel::RestaurantsController < ApplicationController
   # GET /restaurants
   def index
     @restaurants = Restaurant
-                     .page(params[:page] ? params[:page].to_i : 1)
-                     .per(params[:per_page] ? params[:per_page].to_i : 25)
+                   .page(params[:page] ? params[:page].to_i : 1)
+                   .per(params[:per_page] ? params[:per_page].to_i : 25)
 
     render json: ::RestaurantBlueprinter
-      .render(@restaurants, root: :restaurants, meta: pagination_meta(@restaurants))
+      .render(@restaurants,
+              view: :admin_view,
+              root: :restaurants,
+              meta: pagination_meta(@restaurants))
   end
 
   # GET /restaurants/1
   def show
-    render json: @restaurant
+    render json: ::RestaurantBlueprinter
+      .render(@restaurant, view: :admin_view)
   end
 
   # POST /restaurants
