@@ -20,13 +20,14 @@ class Api::V1::Client::MyOrdersController < ApplicationController
   end
 
   # PATCH/PUT /clients/1
-  # def update
-  #   if @client.update(client_params)
-  #     render json: @client
-  #   else
-  #     render json: @client.errors, status: :unprocessable_entity
-  #   end
-  # end
+  def update
+    client_id = @client.id
+    if @my_order.client_id == client_id and @my_order.update(client_id: nil, status: "CREATED")
+      render json: { message: "OK" }
+    else
+      render json: @my_order.errors, status: :unprocessable_entity
+    end
+  end
 
   # DELETE /clients/1
   # def destroy

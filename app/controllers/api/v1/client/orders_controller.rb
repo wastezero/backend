@@ -28,6 +28,9 @@ class Api::V1::Client::OrdersController < ApplicationController
     if params[:restaurant].present?
       orders = orders.filter_by_search_rest(params[:restaurant])
     end
+    if params[:branch_id].present?
+      orders = orders.filter_by_branch(params[:restaurant])
+    end
 
     @orders = orders.page(params[:page] ? params[:page].to_i : 1)
                     .per(params[:per_page] ? params[:per_page].to_i : 25)
@@ -56,7 +59,7 @@ class Api::V1::Client::OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   def update
     client_id = @client.id
-    if @order.update(client_id: client_id)
+    if @order.status == "CREATED" and @order.update(client_id: client_id, status: "BOOKED")
       render json: ::OrderBlueprinter.render(@order, view: :client_my_orders, root: :orders)
     else
       render json: @order.errors, status: :unprocessable_entity

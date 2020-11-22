@@ -9,6 +9,10 @@ class FoodBlueprinter < Blueprinter::Base
     exclude :id
   end
 
+  view :branch_orders do
+    include_view :client_orders
+  end
+
   view :extended do
     fields :description, :ingredients
   end
