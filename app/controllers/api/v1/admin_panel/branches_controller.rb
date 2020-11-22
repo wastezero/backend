@@ -14,17 +14,23 @@ class Api::V1::AdminPanel::BranchesController < ApplicationController
                else
                  Branch.includes(%i[restaurant address]).all
                end
+    if params[:restaurant_id]
+      branches = branches.of_restaurant(params[:restaurant_id])
+    end
 
     @branches = branches.page(params[:page] ? params[:page].to_i : 1)
                         .per(params[:per_page] ? params[:per_page].to_i : 25)
 
     render json: ::BranchBlueprinter
-      .render(@branches, view: :overview, root: :branches, meta: pagination_meta(@branches))
+      .render(@branches,
+              view: :overview,
+              root: :branches,
+              meta: pagination_meta(@branches))
   end
 
   # GET /branches/1
   def show
-    render json: @branch
+    render json: ::BranchBlueprinter.render(@branch, view: :overview)
   end
 
   # POST /branches
