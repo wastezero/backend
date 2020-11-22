@@ -31,7 +31,13 @@ Address.create(street: 'Kabanbay batyr',
 Restaurant.create(name: 'Iftar',
                   cuisine: 'Uighur',
                   status: 'confirmed',
-                  avatar: 'some-link',
+                  avatar: 'https://www.shutterstock.com/ru/image-photo/restaurant-chilling-out-classy-lifestyle-reserved-507639565',
+                  description: 'Best food in the Earth',
+                  contacts: '[23423, 234234]')
+Restaurant.create(name: 'Tubeteika',
+                  cuisine: 'Kazakh',
+                  status: 'confirmed',
+                  avatar: 'https://image.shutterstock.com/image-photo/group-happy-friends-having-breakfast-260nw-1201677928.jpg',
                   description: 'Best food in the Earth',
                   contacts: '[23423, 234234]')
 Branch.create(restaurant_id: 1, address_id: 1)
@@ -39,20 +45,44 @@ Admin.create(name: 'Saddam', surname: 'Master')
 User.create(email: 'admin@wastezerofood.com',
             password: '12345',
             admin_id: 1)
-User.create(email: 'restaurant_iftar@wastezerofood.com',
+User.create(email: 'iftar@wastezerofood.com',
             password: '12345',
             restaurant_id: 1)
+User.create(email: 'tubeteika@wastezerofood.com',
+            password: '12345',
+            restaurant_id: 2)
 
 Branch.create(restaurant_id: 1, address_id: 2)
 Branch.create(restaurant_id: 1, address_id: 3)
+Branch.create(restaurant_id: 2, address_id: 1)
+Branch.create(restaurant_id: 2, address_id: 2)
+Branch.create(restaurant_id: 2, address_id: 3)
 Food.create(name: "food",
             description: "some food",
             ingredients: "some ingredients",
             price: 1800,
             cuisine: "fast food",
             # type: "1",
-            image: "some_link",
+            image: "https://image.shutterstock.com/image-photo/healthy-food-clean-eating-selection-600w-722718082.jpg",
             restaurant_id: 1,
+            created_at: DateTime.now())
+Food.create(name: "food2",
+            description: "some food 2",
+            ingredients: "some ingredients 2",
+            price: 1800,
+            cuisine: "fast food 2",
+            # type: "1",
+            image: "https://image.shutterstock.com/image-photo/healthy-food-clean-eating-selection-600w-722718082.jpg",
+            restaurant_id: 1,
+            created_at: DateTime.now())
+Food.create(name: "food3",
+            description: "some food 3",
+            ingredients: "some ingredients 3",
+            price: 1800,
+            cuisine: "fast food 3",
+            # type: "1",
+            image: "https://image.shutterstock.com/image-photo/healthy-food-clean-eating-selection-600w-722718082.jpg",
+            restaurant_id: 2,
             created_at: DateTime.now())
 # Admin.create(name: 'Saddam', surname: 'Master')
 #
@@ -82,6 +112,27 @@ Order.create(branch_id: 2,
              discount_price: 1000,
              status: "CREATED")
 Order.create(branch_id: 3,
+             food_id: 1,
+             client_id: nil,
+             expires_at: DateTime.now().next_day(30),
+             deadline: DateTime.now().next_day(30),
+             discount_price: 1000,
+             status: "CREATED")
+Order.create(branch_id: 4,
+             food_id: 1,
+             client_id: nil,
+             expires_at: DateTime.now().next_day(30),
+             deadline: DateTime.now().next_day(30),
+             discount_price: 1000,
+             status: "CREATED")
+Order.create(branch_id: 5,
+             food_id: 1,
+             client_id: nil,
+             expires_at: DateTime.now().next_day(30),
+             deadline: DateTime.now().next_day(30),
+             discount_price: 1000,
+             status: "CREATED")
+Order.create(branch_id: 6,
              food_id: 1,
              client_id: nil,
              expires_at: DateTime.now().next_day(30),
