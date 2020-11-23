@@ -9,6 +9,6 @@ class Api::V1::Registration::RestaurantsController < ApplicationController
 
 
     render json: ::RestaurantBlueprinter
-      .render(@restaurants, root: :restaurants, meta: pagination_meta(@restaurants))
+      .render(@restaurants, view: :extended, root: :restaurants, meta: pagination_meta(@restaurants))
   end
 end
