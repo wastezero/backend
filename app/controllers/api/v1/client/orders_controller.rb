@@ -9,7 +9,8 @@ class Api::V1::Client::OrdersController < ApplicationController
   # GET /orders
   def index
     square = square(params[:lng], params[:lat])
-    orders = Order.where("client_id = ? AND status = ?", nil, "CREATED")
+    orders = Order.where(client_id: nil)
+                  .where("status = ?", "CREATED")
                   .where("expires_at >= ?", DateTime.now())
                   .all
 
