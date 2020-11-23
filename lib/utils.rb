@@ -1,5 +1,5 @@
 module Utils
-  RAD = 1.0
+  RAD = 3.0
   R = 6371.0
 
   def square(lng, lat)

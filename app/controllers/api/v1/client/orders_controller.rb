@@ -9,9 +9,9 @@ class Api::V1::Client::OrdersController < ApplicationController
   # GET /orders
   def index
     square = square(params[:lng], params[:lat])
-    orders = Order.where(client_id: nil)
-                   .where("expires_at >= ?", DateTime.now())
-                   .all
+    orders = Order.where("client_id = ? AND status = ?", nil, "CREATED")
+                  .where("expires_at >= ?", DateTime.now())
+                  .all
 
     if params[:min_price].present? && params[:max_price].present?
       orders = orders.filter_by_price(params[:min_price], params[:max_price])
