@@ -33,6 +33,13 @@ class Api::V1::Client::OrdersController < ApplicationController
       orders = orders.filter_by_branch(params[:restaurant])
     end
 
+    if params[:sort_by].present?
+      orders = orders.order(params[:sort_by])
+    else
+      orders = orders.order(updated_at: :desc)
+    end
+
+
     @orders = orders.page(params[:page] ? params[:page].to_i : 1)
                     .per(params[:per_page] ? params[:per_page].to_i : 25)
 
