@@ -39,17 +39,17 @@ class FoodsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_food
-      @food = Food.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_food
+    @food = Food.find(params[:id])
+  end
 
-    # Only allow a trusted parameter "white list" through.
-    def food_params
-      params.require(:food)
-            .permit(:name, :description,
-                    :ingredients, :price,
-                    :type, :restaurant_id,
-                    :image)
-    end
+  # Only allow a trusted parameter "white list" through.
+  def food_params
+    params.require(:food)
+          .permit(:name, :description,
+                  :ingredients, :price,
+                  :type, :restaurant_id,
+                  :image)
+  end
 end
