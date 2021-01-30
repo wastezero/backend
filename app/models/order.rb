@@ -2,6 +2,12 @@ class Order < ActiveRecord::Base
   belongs_to :branch
   belongs_to :food
 
+  after_initialize :set_defaults
+
+  def set_defaults
+    self.status ||= 'CREATED'
+  end
+
 
   scope :filter_by_price, -> (min_price, max_price) { where("discount_price >= ? AND discount_price <= ?", min_price, max_price) }
   scope :filter_by_types, -> (type_ids) { joins(:food).where("foods.type IN (?)", type_ids) }
