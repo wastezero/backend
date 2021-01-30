@@ -1,5 +1,7 @@
 class FoodsController < ApplicationController
   before_action :set_food, only: [:show, :update, :destroy]
+  before_action :authenticate_user!
+  before_action -> { validate!(%w[admin restaurant manager]) }, only: :create
 
   # GET /foods
   def index
