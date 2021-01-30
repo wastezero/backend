@@ -4,7 +4,6 @@ class BranchBlueprinter < Blueprinter::Base
   identifier :id
 
   view :client_orders do
-    exclude :id
     association :restaurant, blueprint: RestaurantBlueprinter, view: :client_orders
     association :address, blueprint: AddressBlueprinter, view: :client_orders
   end
