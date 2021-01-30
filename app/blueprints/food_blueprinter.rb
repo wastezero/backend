@@ -6,11 +6,6 @@ class FoodBlueprinter < Blueprinter::Base
   fields :name, :cuisine, :image
 
   view :client_orders do
-    exclude :id
-  end
-
-  view :branch_orders do
-    include_view :client_orders
   end
 
   view :extended do
