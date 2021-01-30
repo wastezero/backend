@@ -18,4 +18,7 @@ class Order < ActiveRecord::Base
   scope :filter_by_search_name, -> (name) { joins(:food).where("foods.name like ?", name) }
   scope :filter_by_search_rest, -> (name) { joins(:branch => :restaurant).where("restaurants.name like ?", name) }
 
+  def as_json(options={})
+    super(options).reject { |k, v| v.nil? }
+  end
 end
