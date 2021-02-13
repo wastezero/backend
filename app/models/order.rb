@@ -1,6 +1,9 @@
 class Order < ActiveRecord::Base
-  belongs_to :branch
+  enum owner: [:restaurant, :client]
+
+  belongs_to :branch, optional: true
   belongs_to :food
+  belongs_to :client, optional: true
 
   after_initialize :set_defaults
 
