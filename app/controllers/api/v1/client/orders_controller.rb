@@ -3,8 +3,8 @@
 class Api::V1::Client::OrdersController < ApplicationController
   include Utils
   before_action :set_order, only: [:show, :update]
-  before_action :authenticate_user!, only: [:update]
-  before_action -> { validate!(%w[client]) }, only: :update
+  before_action :authenticate_user!, only: [:update, :create]
+  before_action -> { validate!(%w[client]) }, only: [:update, :create]
 
   # GET /orders
   def index
@@ -54,16 +54,21 @@ class Api::V1::Client::OrdersController < ApplicationController
   end
 
   # # POST /orders
-  # def create
-  #   @order = Order.new(order_params)
-  #
-  #   if @order.save
-  #     render json: @order, status: :created, location: @order
-  #   else
-  #     render json: @order.errors, status: :unprocessable_entity
-  #   end
-  # end
-  #
+  def create
+    @food = Food.new(food_params)
+    @food.save
+    @order = Order.new(order_params)
+    @order.food_id = @food.id
+    @order.owner_id = @client.id
+    @order.owner = "client"
+
+    if @order.save
+      render json: @order, status: :created, location: @order
+    else
+      render json: @order.errors, status: :unprocessable_entity
+    end
+  end
+
   # PATCH/PUT /orders/1
   def update
     client_id = @client.id
@@ -73,6 +78,7 @@ class Api::V1::Client::OrdersController < ApplicationController
       render json: @order.errors, status: :unprocessable_entity
     end
   end
+
   #
   # # DELETE /orders/1
   # def destroy
@@ -80,13 +86,21 @@ class Api::V1::Client::OrdersController < ApplicationController
   # end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_order
-      @order = Order.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_order
+    @order = Order.find(params[:id])
+  end
 
-    # # Only allow a trusted parameter "white list" through.
-    def order_params
-      params.fetch(:order, {})
-    end
+  # # Only allow a trusted parameter "white list" through.
+  def order_params
+    params.require(:order).permit(:expires_at, :deadline,
+                                  :discount_price)
+  end
+
+  def food_params
+    params.require(:order)
+          .permit(:name, :description,
+                  :ingredients, :cuisine,
+                  :price, :image)
+  end
 end

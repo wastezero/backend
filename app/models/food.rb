@@ -1,5 +1,5 @@
 class Food < ApplicationRecord
   has_many :orders
 
-  belongs_to :restaurant
+  belongs_to :restaurant, optional: true
 end
