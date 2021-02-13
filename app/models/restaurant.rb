@@ -5,7 +5,7 @@ class Restaurant < ApplicationRecord
   has_many :foods
 
   def init
-    self.status ||= :confirmed
+    self.status ||= :new
   end
 
 end

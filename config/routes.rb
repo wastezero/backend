@@ -15,7 +15,9 @@ Rails.application.routes.draw do
         resources :restaurants
       end
       namespace :admin_panel do
-        resources :managers
+        resources :managers do
+          post 'approve', on: :member
+        end
         resources :admins
         resources :branches
         resources :restaurants

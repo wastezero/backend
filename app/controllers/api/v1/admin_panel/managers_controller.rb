@@ -1,7 +1,8 @@
 class Api::V1::AdminPanel::ManagersController < ApplicationController
-  before_action :set_manager, only: [:show, :update, :destroy]
+  before_action :set_manager, only: %i[show update destroy approve]
   before_action :authenticate_user!
-  before_action -> { validate!(%w[admin restaurant]) }, only: :index
+  before_action -> { validate!(%w[admin restaurant]) },
+                only: %i[index approve]
 
   # GET /managers
   def index
@@ -51,6 +52,14 @@ class Api::V1::AdminPanel::ManagersController < ApplicationController
   # DELETE /managers/1
   def destroy
     @manager.destroy
+  end
+
+  def approve
+    if @manager.update(status: :confirmed)
+      render json: @manager
+    else
+      render json: @manager.errors, status: :unprocessable_entity
+    end
   end
 
   private

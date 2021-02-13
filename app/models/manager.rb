@@ -8,6 +8,6 @@ class Manager < ApplicationRecord
   }
 
   def init
-    self.status ||= :confirmed
+    self.status ||= :new
   end
 end
