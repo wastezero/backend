@@ -16,7 +16,7 @@ class Api::V1::Client::BranchesController < ApplicationController
                end
 
     if params[:type].present?
-      branches = branches.filter_by_types(params[:type].split(','))
+      branches = branches.filter_by_cuisine(params[:type].split(','))
     end
 
     if params[:name].present?

@@ -22,6 +22,7 @@ Rails.application.routes.draw do
         resources :branches
         resources :restaurants
         resources :orders
+        resources :foods
       end
       # resources :clients
       namespace :client do

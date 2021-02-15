@@ -1,4 +1,4 @@
-class FoodsController < ApplicationController
+class Api::V1::AdminPanel::FoodsController < ApplicationController
   before_action :set_food, only: [:show, :update, :destroy]
   before_action :authenticate_user!
   before_action -> { validate!(%w[admin restaurant manager]) }, only: :create
@@ -51,7 +51,7 @@ class FoodsController < ApplicationController
     params.require(:food)
           .permit(:name, :description,
                   :ingredients, :price,
-                  :type, :restaurant_id,
+                  :cuisine, :restaurant_id,
                   :image)
   end
 end
