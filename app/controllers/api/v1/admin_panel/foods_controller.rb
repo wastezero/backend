@@ -5,9 +5,13 @@ class Api::V1::AdminPanel::FoodsController < ApplicationController
 
   # GET /foods
   def index
-    @foods = Food.all
+    @foods = Food.page(params[:page] ? params[:page].to_i : 1)
+                 .per(params[:per_page] ? params[:per_page].to_i : 25)
 
-    render json: ::FoodBlueprinter.render(@foods, view: :extended),
+    render json: ::FoodBlueprinter.render(@foods,
+                                          view: :extended,
+                                          root: :foods,
+                                          meta: pagination_meta(@foods)),
            status: 200
   end
 
