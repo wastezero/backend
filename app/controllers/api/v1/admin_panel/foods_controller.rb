@@ -7,12 +7,13 @@ class Api::V1::AdminPanel::FoodsController < ApplicationController
   def index
     @foods = Food.all
 
-    render json: @foods
+    render json: ::FoodBlueprinter.render(@foods, view: :extended),
+           status: 200
   end
 
   # GET /foods/1
   def show
-    render json: @food
+    render json: ::FoodBlueprinter.render(@food, view: :extended)
   end
 
   # POST /foods
