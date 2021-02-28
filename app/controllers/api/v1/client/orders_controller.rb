@@ -60,7 +60,7 @@ class Api::V1::Client::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.food_id = @food.id
     @order.owner_id = @client.id
-    @order.owner = "client"
+    @order.owner = 'client'
 
     if @order.save
       render json: @order, status: :created, location: @order
