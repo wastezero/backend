@@ -10,6 +10,9 @@ class FoodBlueprinter < Blueprinter::Base
 
   view :extended do
     fields :description, :ingredients
+    association :restaurant,
+                blueprint: RestaurantBlueprinter,
+                view: :extended
   end
 
 end
