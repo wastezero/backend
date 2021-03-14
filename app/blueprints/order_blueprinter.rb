@@ -21,6 +21,7 @@ class OrderBlueprinter < Blueprinter::Base
     fields :deadline
     association :food, blueprint: FoodBlueprinter
     association :branch, blueprint: BranchBlueprinter, view: :client_orders
+    association :client, blueprint: ClientBlueprinter
   end
 
 
