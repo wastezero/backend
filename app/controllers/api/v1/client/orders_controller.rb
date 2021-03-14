@@ -14,6 +14,10 @@ class Api::V1::Client::OrdersController < ApplicationController
                   .where("expires_at >= ?", DateTime.now())
                   .all
 
+    if @client.present?
+      orders = orders.where("owner_id != ?", @client.id)
+    end
+
     if params[:min_price].present? && params[:max_price].present?
       orders = orders.filter_by_price(params[:min_price], params[:max_price])
     end
@@ -79,11 +83,13 @@ class Api::V1::Client::OrdersController < ApplicationController
     end
   end
 
-  #
-  # # DELETE /orders/1
-  # def destroy
-  #   @order.destroy
-  # end
+
+  # DELETE /orders/1
+  def destroy
+    if @client.present? and @order.owner_id != @client.id
+      @order.destroy
+    end
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.
