@@ -12,7 +12,7 @@ class OrderBlueprinter < Blueprinter::Base
   end
 
   view :branch_orders do
-    association :food, blueprint: FoodBlueprinter, view: :branch_orders
+    association :food, blueprint: FoodBlueprinter
   end
 
   view :client_my_orders do
