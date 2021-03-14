@@ -76,7 +76,7 @@ class Api::V1::Client::OrdersController < ApplicationController
   # PATCH/PUT /orders/1
   def update
     client_id = @client.id
-    if @order.status == "CREATED" and @order.update(client_id: client_id, status: "BOOKED")
+    if @order.status == "CREATED" and @order.owner_id != client_id and @order.update(client_id: client_id, status: "BOOKED")
       render json: ::OrderBlueprinter.render(@order, view: :client_my_orders, root: :orders)
     else
       render json: @order.errors, status: :unprocessable_entity
