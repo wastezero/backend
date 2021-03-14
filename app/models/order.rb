@@ -3,7 +3,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :branch, optional: true
   belongs_to :food
-  belongs_to :client, optional: true
+  belongs_to :client, foreign_key: 'owner_id', optional: true
 
   after_initialize :set_defaults
 

@@ -5,10 +5,12 @@ class OrderBlueprinter < Blueprinter::Base
 
   field :discount_price, name: :price
   field :expires_at
+  field :owner_id
 
   view :client_orders do
     association :food, blueprint: FoodBlueprinter
     association :branch, blueprint: BranchBlueprinter, view: :client_orders
+    association :client, blueprint: ClientBlueprinter
   end
 
   view :branch_orders do
@@ -19,6 +21,8 @@ class OrderBlueprinter < Blueprinter::Base
     fields :deadline
     association :food, blueprint: FoodBlueprinter
     association :branch, blueprint: BranchBlueprinter, view: :client_orders
+    association :client, blueprint: ClientBlueprinter
   end
+
 
 end
