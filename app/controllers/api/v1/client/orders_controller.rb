@@ -2,9 +2,9 @@
 
 class Api::V1::Client::OrdersController < ApplicationController
   include Utils
-  before_action :set_order, only: [:show, :update]
-  before_action :authenticate_user!, only: [:update, :create]
-  before_action -> { validate!(%w[client]) }, only: [:update, :create]
+  before_action :set_order, only: [:show, :update, :destroy]
+  before_action :authenticate_user!, only: [:update, :create, :destroy]
+  before_action -> { validate!(%w[client]) }, only: [:update, :create, :destroy]
 
   # GET /orders
   def index
@@ -86,9 +86,12 @@ class Api::V1::Client::OrdersController < ApplicationController
 
   # DELETE /orders/1
   def destroy
-    if @client.present? and @order.owner_id != @client.id
+    if @client.present? and @order.owner_id == @client.id
       @order.destroy
+    else
+      render json: @order.errors, status: :unauthorized
     end
+
   end
 
   private
