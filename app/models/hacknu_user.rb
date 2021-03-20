@@ -1,0 +1,2 @@
+class HacknuUser < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class HacknuTopicRoom < ApplicationRecord
+end

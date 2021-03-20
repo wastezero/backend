@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_190510) do
+ActiveRecord::Schema.define(version: 2021_03_20_072020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,90 @@ ActiveRecord::Schema.define(version: 2021_02_13_190510) do
     t.index ["restaurant_id"], name: "index_foods_on_restaurant_id"
   end
 
+  create_table "hacknu_conversations", force: :cascade do |t|
+    t.bigint "user1_id"
+    t.bigint "user2_id"
+    t.bigint "topic_room_id"
+    t.boolean "open"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_room_id"], name: "index_hacknu_conversations_on_topic_room_id"
+    t.index ["user1_id"], name: "index_hacknu_conversations_on_user1_id"
+    t.index ["user2_id"], name: "index_hacknu_conversations_on_user2_id"
+  end
+
+  create_table "hacknu_images", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_hacknu_images_on_user_id"
+  end
+
+  create_table "hacknu_likes", force: :cascade do |t|
+    t.bigint "fan_id"
+    t.bigint "crush_id"
+    t.string "fan_like_type"
+    t.string "crush_like_type"
+    t.boolean "matched"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["crush_id"], name: "index_hacknu_likes_on_crush_id"
+    t.index ["fan_id"], name: "index_hacknu_likes_on_fan_id"
+  end
+
+  create_table "hacknu_preferences", force: :cascade do |t|
+    t.integer "min_age"
+    t.integer "max_age"
+    t.integer "distance"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_hacknu_preferences_on_user_id"
+  end
+
+  create_table "hacknu_tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hacknu_topic_rooms", force: :cascade do |t|
+    t.bigint "topic_id"
+    t.bigint "user_id"
+    t.boolean "free"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["topic_id"], name: "index_hacknu_topic_rooms_on_topic_id"
+    t.index ["user_id"], name: "index_hacknu_topic_rooms_on_user_id"
+  end
+
+  create_table "hacknu_topic_tags", force: :cascade do |t|
+    t.integer "topic_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hacknu_topics", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hacknu_users", force: :cascade do |t|
+    t.string "name"
+    t.string "lastname"
+    t.integer "age"
+    t.float "lat"
+    t.float "lng"
+    t.string "gender"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "managers", force: :cascade do |t|
     t.string "name"
     t.string "surname"
@@ -145,6 +229,15 @@ ActiveRecord::Schema.define(version: 2021_02_13_190510) do
   add_foreign_key "cities", "countries"
   add_foreign_key "clients", "addresses"
   add_foreign_key "foods", "restaurants"
+  add_foreign_key "hacknu_conversations", "hacknu_topic_rooms", column: "topic_room_id"
+  add_foreign_key "hacknu_conversations", "hacknu_users", column: "user1_id"
+  add_foreign_key "hacknu_conversations", "hacknu_users", column: "user2_id"
+  add_foreign_key "hacknu_images", "hacknu_users", column: "user_id"
+  add_foreign_key "hacknu_likes", "hacknu_users", column: "crush_id"
+  add_foreign_key "hacknu_likes", "hacknu_users", column: "fan_id"
+  add_foreign_key "hacknu_preferences", "hacknu_users", column: "user_id"
+  add_foreign_key "hacknu_topic_rooms", "hacknu_topics", column: "topic_id"
+  add_foreign_key "hacknu_topic_rooms", "hacknu_users", column: "user_id"
   add_foreign_key "managers", "branches"
   add_foreign_key "orders", "branches"
   add_foreign_key "orders", "clients"

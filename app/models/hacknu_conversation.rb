@@ -1,0 +1,2 @@
+class HacknuConversation < ApplicationRecord
+end

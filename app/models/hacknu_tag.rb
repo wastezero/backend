@@ -1,0 +1,2 @@
+class HacknuTag < ApplicationRecord
+end

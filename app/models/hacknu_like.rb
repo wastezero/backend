@@ -1,0 +1,2 @@
+class HacknuLike < ApplicationRecord
+end
