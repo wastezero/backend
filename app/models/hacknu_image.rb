@@ -1,0 +1,2 @@
+class HacknuImage < ApplicationRecord
+end

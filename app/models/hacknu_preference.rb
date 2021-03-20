@@ -1,0 +1,2 @@
+class HacknuPreference < ApplicationRecord
+end

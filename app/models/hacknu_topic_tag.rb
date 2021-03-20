@@ -1,0 +1,2 @@
+class HacknuTopicTag < ApplicationRecord
+end
