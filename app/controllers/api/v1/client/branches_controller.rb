@@ -32,7 +32,7 @@ class Api::V1::Client::BranchesController < ApplicationController
 
   # GET /branches/1
   def show
-    @branch = Branch.joins(:orders).where("orders.branch_id = ?", params[:id]).first
+    @branch = Branch.joins(:orders).includes(:manager).where("orders.branch_id = ?", params[:id]).first
 
     # render json: @branch
     render json: ::BranchBlueprinter.render(@branch, view: :client_branch, root: :branches)

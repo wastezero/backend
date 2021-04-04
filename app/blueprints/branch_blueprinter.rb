@@ -17,6 +17,7 @@ class BranchBlueprinter < Blueprinter::Base
     association :restaurant, blueprint: RestaurantBlueprinter, view: :client_branch
     association :address, blueprint: AddressBlueprinter, view: :client_branch
     association :orders, blueprint: OrderBlueprinter, view: :branch_orders
+    association :manager, blueprint: ManagerBlueprinter
   end
 
   view :main_info do

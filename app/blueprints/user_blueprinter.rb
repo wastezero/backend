@@ -8,7 +8,15 @@ class UserBlueprinter < Blueprinter::Base
       user.manager_id
     elsif user.admin_id.present?
       user.admin_id
+    else
+      user.client_id
     end
+  end
+
+  view :chat do
+    exclude :authentication_token
+    field :role
+    field :name
   end
 
   fields :email, :authentication_token

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_13_190510) do
+ActiveRecord::Schema.define(version: 2021_04_04_073156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,15 @@ ActiveRecord::Schema.define(version: 2021_02_13_190510) do
     t.datetime "updated_at", null: false
     t.index ["address_id"], name: "index_branches_on_address_id"
     t.index ["restaurant_id"], name: "index_branches_on_restaurant_id"
+  end
+
+  create_table "chats", force: :cascade do |t|
+    t.bigint "manager_id"
+    t.bigint "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_chats_on_client_id"
+    t.index ["manager_id"], name: "index_chats_on_manager_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -90,6 +99,16 @@ ActiveRecord::Schema.define(version: 2021_02_13_190510) do
     t.datetime "updated_at", null: false
     t.string "status"
     t.index ["branch_id"], name: "index_managers_on_branch_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.bigint "chat_id"
+    t.bigint "sender_id"
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_id"], name: "index_messages_on_chat_id"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -142,10 +161,14 @@ ActiveRecord::Schema.define(version: 2021_02_13_190510) do
   add_foreign_key "addresses", "cities"
   add_foreign_key "branches", "addresses"
   add_foreign_key "branches", "restaurants"
+  add_foreign_key "chats", "users", column: "client_id"
+  add_foreign_key "chats", "users", column: "manager_id"
   add_foreign_key "cities", "countries"
   add_foreign_key "clients", "addresses"
   add_foreign_key "foods", "restaurants"
   add_foreign_key "managers", "branches"
+  add_foreign_key "messages", "chats"
+  add_foreign_key "messages", "users", column: "sender_id"
   add_foreign_key "orders", "branches"
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "clients", column: "owner_id"

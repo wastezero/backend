@@ -17,6 +17,22 @@ class User < ApplicationRecord
     end
   end
 
+  def manager?
+    manager.present?
+  end
+
+  def client?
+    client.present?
+  end
+
+  def restaurant?
+    restaurant.present?
+  end
+
+  def admin?
+    admin.present?
+  end
+
   def parent_user
     case role
     when UserRole::Manager
