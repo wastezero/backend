@@ -28,6 +28,9 @@ gem 'jwt'
 gem 'kaminari'
 gem 'api-pagination'
 gem 'pg', '~> 1.2.3'
+gem 'redis'
+gem 'redis-namespace'
+gem 'redis-rails'
 # gem "simple_token_authentication"
 gem 'geokit-rails'
 
