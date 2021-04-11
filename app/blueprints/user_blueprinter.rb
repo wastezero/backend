@@ -13,6 +13,14 @@ class UserBlueprinter < Blueprinter::Base
     end
   end
 
+  field :restaurant do |user|
+    if user.restaurant_id.present?
+      user.restaurant.name
+    elsif user.manager_id.present?
+      user.manager.branch.restaurant.name
+    end
+  end
+
   view :chat do
     exclude :authentication_token
     field :role
@@ -25,4 +33,6 @@ class UserBlueprinter < Blueprinter::Base
     field :role
     field :name
   end
+
+  # association :manager, blueprint: ManagerBueprinter
 end

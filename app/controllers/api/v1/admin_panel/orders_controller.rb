@@ -8,6 +8,8 @@ class Api::V1::AdminPanel::OrdersController < ApplicationController
     @order = Order.new(order_params)
     @order.owner = "restaurant"
 
+    @order.owner_id = @order.branch.manager.id
+
     if @order.save
       render json: @order, status: :created, location: @order
     else
